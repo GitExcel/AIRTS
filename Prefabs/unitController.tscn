@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dom46m8x4t4eo"]
+
+[ext_resource type="Script" path="res://Scripts/unitController.gd" id="1_ufriy"]
+
+[node name="UnitController" type="Node2D" groups=["unitController"]]
+script = ExtResource("1_ufriy")

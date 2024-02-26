@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1jxvm0yinlvc"]
+
+[ext_resource type="Script" path="res://Scripts/soldier.gd" id="1_2ggi4"]
+[ext_resource type="Texture2D" uid="uid://cam4v2yvog0xp" path="res://Sprites/pixil-frame-0.png" id="1_s8on1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2n5fn"]
+size = Vector2(94.2354, 67.0594)
+
+[node name="soldier" type="CharacterBody2D" groups=["soldiers"]]
+collision_layer = 2
+collision_mask = 3
+input_pickable = true
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_2ggi4")
+speed = 50
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2, 4)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_s8on1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.30774, 0.424996)
+shape = SubResource("RectangleShape2D_2n5fn")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 50.0
+target_desired_distance = 50.0
+avoidance_enabled = true
+radius = 50.0
+max_neighbors = 1
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
