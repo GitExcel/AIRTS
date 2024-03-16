@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddgv8lr1alvlo"]
+
+[ext_resource type="Script" path="res://Scripts/General.gd" id="1_jr132"]
+[ext_resource type="Texture2D" uid="uid://cam4v2yvog0xp" path="res://Sprites/pixil-frame-0.png" id="2_b4nxk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jhbg5"]
+size = Vector2(34, 39.5)
+
+[node name="General" type="CharacterBody2D"]
+script = ExtResource("1_jr132")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_b4nxk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -3.75)
+shape = SubResource("RectangleShape2D_jhbg5")

@@ -20,6 +20,7 @@ func _ready():
 	print(unitmanager)
 	unitmanager.soldierArray.append(self)
 	print(unitmanager.soldierArray)
+	
 
 
 
@@ -47,7 +48,7 @@ func _process(_delta: float) -> void:
 	
 func makePath() -> void:
 	mousePos = get_global_mouse_position()
-	nav2d.target_position = mousePos
+	nav2d.target_position = mousePos + Vector2(randf_range(-20.0, 20.0), randf_range(-20.0, 20.0) )
 	
 
 
