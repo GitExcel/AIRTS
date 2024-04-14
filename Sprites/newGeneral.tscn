@@ -1,27 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1jxvm0yinlvc"]
+[gd_scene load_steps=5 format=3 uid="uid://dcyc6yrv67ryu"]
 
-[ext_resource type="Script" path="res://Scripts/soldier.gd" id="1_2ggi4"]
-[ext_resource type="Texture2D" uid="uid://cam4v2yvog0xp" path="res://Sprites/pixil-frame-0.png" id="1_s8on1"]
+[ext_resource type="Script" path="res://Sprites/newGeneral.gd" id="1_8by6k"]
+[ext_resource type="Texture2D" uid="uid://br85gp0ko24vr" path="res://Sprites/general3.png" id="2_33wy4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2n5fn"]
 size = Vector2(94.2354, 119.013)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p075v"]
 
-[node name="soldier" type="CharacterBody2D" groups=["soldiers"]]
+[node name="General" type="CharacterBody2D" groups=["soldiers"]]
 collision_layer = 2
 collision_mask = 523
 input_pickable = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
-script = ExtResource("1_2ggi4")
-speed = 100
+script = ExtResource("1_8by6k")
+speed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(2, 4)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("1_s8on1")
+texture = ExtResource("2_33wy4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
@@ -36,9 +36,6 @@ avoidance_enabled = true
 radius = 100.0
 max_neighbors = 1
 avoidance_priority = 0.0
-debug_enabled = true
-debug_use_custom = true
-debug_path_custom_line_width = 6.77
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -46,7 +43,6 @@ one_shot = true
 autostart = true
 
 [node name="Range" type="Area2D" parent="."]
-collision_layer = 0
 collision_mask = 521
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
@@ -64,7 +60,6 @@ default_color = Color(0.0823529, 0.301961, 1, 1)
 wait_time = 0.1
 one_shot = true
 
-[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
 [connection signal="target_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_target_reached"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="Range" to="." method="_on_range_area_entered"]

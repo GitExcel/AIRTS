@@ -24,7 +24,8 @@ func _unhandled_input(event):
 				drag_start = get_global_mouse_position()
 			else:
 				for item in selected:
-					item.collider.selected = false
+					if item.collider !=null:
+						item.collider.selected = false
 				selected = []
 				
 		elif dragging:

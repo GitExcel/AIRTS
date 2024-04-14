@@ -4,8 +4,8 @@ extends CharacterBody2D
 var mousePos = Vector2(0,0)
 @export var speed = 0
 var moved = false
-var normalSprite = ("res://Sprites/pixil-frame-0.png")
-var selectedSprite = ("res://Sprites/selected2.png")
+var normalSprite = ("res://Sprites/general3.png")
+var selectedSprite = ("res://Sprites/generalselected.png")
 @onready var nav2d = $NavigationAgent2D
 var mouseIn = false
 var selected = false
@@ -19,6 +19,7 @@ var enemyArray: Array
 var bullet = preload("res://Prefabs/bullet.tscn")
 var readyToShoot = true
 var health = 100
+@export var gameover: CanvasLayer
 var gathering = false
 
 
@@ -34,18 +35,20 @@ func _ready():
 
 
 func _process(_delta: float) -> void:
-	if health <= 0:
-		var alloutattack = get_tree().get_first_node_in_group("AllOutAttack") 
-		alloutattack.soldiers.erase(self)
+	
+	if health == 0:
+		gameover.visible = true
 		queue_free()
 	if Input.is_action_just_pressed("Move") && selected:
+		print("number1")
 		$Timer.start()
-		if !gathering:
-			makePath()
+		
+		makePath()
 		moved = true
 	if Input.is_action_just_released("Select"):
 		selecting = false
 	if moved && enemyToAttack == null:
+		
 		
 		var dir = to_local(nav2d.get_next_path_position()).normalized()
 		velocity = dir * speed
@@ -67,7 +70,6 @@ func _process(_delta: float) -> void:
 			$Line2D.add_point(to_local(global_position))
 			$Line2D.add_point(to_local(enemyToAttack.global_position))
 			$lineTimer.start()
-			enemyToAttack.health -= 20
 			
 			#var instance = bullet.instantiate()  BULLET LOGIC MAYBE SAVE FOR LATER
 			#get_tree().root.add_child(instance)
@@ -82,7 +84,7 @@ func _process(_delta: float) -> void:
 		else:
 			
 			
-			
+			print(enemyIsInRange)
 			var dir = to_local(nav2d.get_next_path_position()).normalized()
 			velocity = dir * speed
 			$Sprite2D.rotation = dir.angle()
@@ -107,18 +109,6 @@ func makePath() -> void:
 func makePathWithPos(pos) -> void:
 	nav2d.target_position = pos + Vector2(randf_range(-100.0, 100), randf_range(-100, 100) )
 	
-func gather():
-	gathering = true
-	moved = true
-	selected = true
-	print("gathering")
-	nav2d.target_position = get_tree().get_first_node_in_group("GatherPoint").position
-	selected = false
-	
-
-	
-	
-	
 
 
 
@@ -127,7 +117,7 @@ func gather():
 
 func _on_navigation_agent_2d_target_reached():
 	moved = false
-	
+	print("WORKING")
 
 
 #func _on_mouse_entered():
@@ -138,6 +128,15 @@ func _on_navigation_agent_2d_target_reached():
 #func _on_mouse_exited():
 	#mouseIn = false
 	#print("exit")
+
+
+func gather():
+	gathering = true
+	moved = true
+	selected = true
+	print("gathering")
+	nav2d.target_position = get_tree().get_first_node_in_group("GatherPoint").position
+	selected = false
 
 
 
@@ -190,7 +189,3 @@ func _on_bullet_timer_timeout():
 func _on_line_timer_timeout():
 	$Line2D.clear_points()
 	
-
-
-func _on_navigation_agent_2d_navigation_finished():
-	gathering = false

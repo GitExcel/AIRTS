@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cp5qkyyr4x75g"]
+
+[node name="Node2D" type="Node2D" groups=["GatherPoint"]]

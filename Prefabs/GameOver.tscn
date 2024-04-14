@@ -2,6 +2,12 @@
 
 [node name="GameOver" type="CanvasLayer"]
 
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(28.7419, 17)
+color = Color(0, 0, 0, 0.419608)
+
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
@@ -10,8 +16,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -149.0
 offset_top = -31.0
-offset_right = 149.0
-offset_bottom = 31.0
+offset_right = 151.0
+offset_bottom = 38.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

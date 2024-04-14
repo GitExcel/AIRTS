@@ -23,8 +23,10 @@ func _process(delta):
 		$Marker2D.global_position = get_global_mouse_position()
 	
 	if selected:
+		$Marker2D/Sprite2D.visible = true
 		selectedlogic()
 	if !selected:
+		$Marker2D/Sprite2D.visible = false
 		notSelectedLogic()
 		
 func selectedlogic():

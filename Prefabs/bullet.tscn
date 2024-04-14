@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://6a3osb1pc62r"]
+
+[ext_resource type="Texture2D" uid="uid://tiuj1081vl4n" path="res://icon.svg" id="1_cv0l4"]
+[ext_resource type="Script" path="res://Prefabs/bullet.gd" id="1_cwrpu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c3osl"]
+size = Vector2(12, 12)
+
+[node name="Bullet" type="CharacterBody2D"]
+collision_layer = 256
+collision_mask = 513
+script = ExtResource("1_cwrpu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_cv0l4")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_c3osl")

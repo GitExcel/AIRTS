@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnwoibk616ffk"]
+
+[ext_resource type="Script" path="res://Prefabs/testenemy.gd" id="1_o8ad8"]
+[ext_resource type="Texture2D" uid="uid://5arvv610xcw6" path="res://Scripts/testBadGuy.png" id="1_yxqdw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qylng"]
+radius = 6.5192
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j7p85"]
+
+[node name="Testenemy" type="StaticBody2D" groups=["enemy"]]
+scale = Vector2(4, 4)
+collision_layer = 512
+collision_mask = 527
+script = ExtResource("1_o8ad8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_yxqdw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+shape = SubResource("CircleShape2D_qylng")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_j7p85")
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_range_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_range_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

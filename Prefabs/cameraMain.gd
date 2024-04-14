@@ -10,10 +10,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_pressed("Camera up"):
-		print("TEST")
+		
 		position.y -= speed
 	if Input.is_action_pressed("Camera Down"):
-		print("TEST")
+		
 		position.y += speed
 	if Input.is_action_pressed("Camera left"):
 		position.x -= speed
@@ -21,11 +21,11 @@ func _process(delta):
 		position.x += speed
 	if Input.is_action_just_pressed("Mouse zoom in"):
 		if self.zoom < Vector2(2, 2):
-			print("zoom in")
+			
 			self.zoom += zoomzpeed
 	if Input.is_action_just_pressed("Camera zoom out"):
 		if self.zoom > Vector2(0.1,0.1):
-			print("zoom out")
+			
 			self.zoom -= zoomzpeed
 		
 	 
