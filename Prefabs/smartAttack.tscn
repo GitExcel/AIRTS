@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfrrpjktxb5r2"]
+
+[ext_resource type="Script" path="res://Prefabs/smartAttack.gd" id="1_wvnbo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fj0rl"]
+radius = 519.024
+
+[node name="smartAttack" type="Area2D"]
+collision_mask = 770
+script = ExtResource("1_wvnbo")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fj0rl")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]

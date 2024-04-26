@@ -15,7 +15,7 @@ input_pickable = true
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_8by6k")
-speed = 50
+speed = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

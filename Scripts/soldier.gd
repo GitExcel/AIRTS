@@ -20,13 +20,20 @@ var bullet = preload("res://Prefabs/bullet.tscn")
 var readyToShoot = true
 var health = 100
 var gathering = false
+var occupied = false
+var attackManager
+var occupiedNumber = 0
+var previousenemy = null
 
 
 func _ready():
+	attackManager = get_tree().get_first_node_in_group("attackManager")
+	attackManager.soldiers.append(self)
 	unitmanager = get_tree().get_first_node_in_group("unitController")
-	print(unitmanager)
-	unitmanager.soldierArray.append(self)
-	print(unitmanager.soldierArray)
+	
+	
+	print(attackManager.soldiers)
+	
 	
 
 
@@ -37,7 +44,20 @@ func _process(_delta: float) -> void:
 	if health <= 0:
 		var alloutattack = get_tree().get_first_node_in_group("AllOutAttack") 
 		alloutattack.soldiers.erase(self)
+		attackManager.soldiers.erase(self)
+		for i in attackManager.smartAttacks.size():
+			if attackManager.smartAttacks[i].smartAttackNumber == occupiedNumber:
+				attackManager.smartAttacks[i].numberselected -= 1
+				print (attackManager.smartAttacks[i].numberselected)
+				
+				
 		queue_free()
+		
+	if previousenemy != enemyToAttack:
+		enemyIsInRange = false
+		previousenemy = enemyToAttack
+	
+		
 	if Input.is_action_just_pressed("Move") && selected:
 		$Timer.start()
 		if !gathering:
@@ -110,7 +130,7 @@ func makePathWithPos(pos) -> void:
 func gather():
 	gathering = true
 	moved = true
-	selected = true
+	
 	print("gathering")
 	nav2d.target_position = get_tree().get_first_node_in_group("GatherPoint").position
 	selected = false
@@ -146,8 +166,8 @@ func _on_range_body_entered(body):
 	
 	if body.is_in_group("enemy"):
 		enemyArray.append(body)
-		print(enemyArray)
-		print("ENEMY ENTER")
+		
+		
 		enemyInRange +=1
 		
 	#if body == enemyToAttack:
@@ -163,10 +183,10 @@ func _on_range_body_exited(body):
 			
 func isEnemyInRange():
 	for i in enemyArray.size():
-		print(enemyArray)
+		
 		if enemyArray[i] == enemyToAttack:
-			print(enemyArray[i])
-			print("found them")
+			
+			
 			enemyIsInRange = true
 			break
 		else:

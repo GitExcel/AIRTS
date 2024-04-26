@@ -4,11 +4,13 @@ extends StaticBody2D
 var entered = false;
 var selected = false;
 var soldier = preload("res://Prefabs/soldier.tscn")
+var worker = preload("res://Prefabs/worker.tscn")
+@onready var resourcestore = get_tree().get_first_node_in_group("resourceStore")
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	resourcestore.buildings.append(self)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,11 +34,15 @@ func _process(delta):
 func selectedlogic():
 	$Button.disabled = false
 	$Button.visible = true
+	$Button2.disabled = false
+	$Button2.visible = true
 	
 	
 func notSelectedLogic():
 	$Button.disabled = true
 	$Button.visible = false
+	$Button2.disabled = true
+	$Button2.visible = false
 	
 
 
@@ -65,9 +71,30 @@ func _on_button_mouse_exited():
 
 
 func _on_button_pressed():
-	var instance = soldier.instantiate()
-	get_tree().root.add_child(instance)
-	instance.position = self.position
-	instance.moved = true
-	instance.nav2d.target_position = $Marker2D.global_position
-	
+	if resourcestore.minerals >= 20:
+		resourcestore.minerals -= 20
+		var instance = soldier.instantiate()
+		get_tree().root.add_child(instance)
+		instance.position = self.position
+		instance.moved = true
+		instance.nav2d.target_position = $Marker2D.global_position
+	else:
+		print("not enough minerals")
+
+
+func _on_area_2d_body_entered(body):
+	if body.target == self:
+		body.addResource()
+		body.returnToBase = false
+		body.needTarget = true
+
+
+func _on_button_2_pressed():
+	if resourcestore.gas >= 20:
+		resourcestore.gas -= 20
+		var instance = worker.instantiate()
+		get_tree().root.add_child(instance)
+		instance.position = self.position
+		instance.position.y = self.position.y - 5
+	else:
+		print("not enough gas")

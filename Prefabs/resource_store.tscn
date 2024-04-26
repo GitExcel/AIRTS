@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcrot3p61n4y"]
+
+[ext_resource type="Script" path="res://Prefabs/resource_store.gd" id="1_mibj4"]
+
+[node name="ResourceStore" type="Node2D" groups=["resourceStore"]]
+script = ExtResource("1_mibj4")

@@ -26,8 +26,8 @@ var gathering = false
 func _ready():
 	unitmanager = get_tree().get_first_node_in_group("unitController")
 	print(unitmanager)
-	unitmanager.soldierArray.append(self)
-	print(unitmanager.soldierArray)
+	
+	
 	
 
 
@@ -40,7 +40,7 @@ func _process(_delta: float) -> void:
 		gameover.visible = true
 		queue_free()
 	if Input.is_action_just_pressed("Move") && selected:
-		print("number1")
+		
 		$Timer.start()
 		
 		makePath()
@@ -84,7 +84,7 @@ func _process(_delta: float) -> void:
 		else:
 			
 			
-			print(enemyIsInRange)
+			
 			var dir = to_local(nav2d.get_next_path_position()).normalized()
 			velocity = dir * speed
 			$Sprite2D.rotation = dir.angle()
@@ -117,7 +117,7 @@ func makePathWithPos(pos) -> void:
 
 func _on_navigation_agent_2d_target_reached():
 	moved = false
-	print("WORKING")
+	
 
 
 #func _on_mouse_entered():
@@ -133,7 +133,7 @@ func _on_navigation_agent_2d_target_reached():
 func gather():
 	gathering = true
 	moved = true
-	selected = true
+	
 	print("gathering")
 	nav2d.target_position = get_tree().get_first_node_in_group("GatherPoint").position
 	selected = false
@@ -145,8 +145,8 @@ func _on_range_body_entered(body):
 	
 	if body.is_in_group("enemy"):
 		enemyArray.append(body)
-		print(enemyArray)
-		print("ENEMY ENTER")
+		
+		
 		enemyInRange +=1
 		
 	#if body == enemyToAttack:
@@ -162,10 +162,10 @@ func _on_range_body_exited(body):
 			
 func isEnemyInRange():
 	for i in enemyArray.size():
-		print(enemyArray)
+		
 		if enemyArray[i] == enemyToAttack:
-			print(enemyArray[i])
-			print("found them")
+			
+			
 			enemyIsInRange = true
 			break
 		else:

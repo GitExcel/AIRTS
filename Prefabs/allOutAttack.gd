@@ -14,17 +14,47 @@ var enemies : Array
 var attacking = false
 var enemiesempty = true
 var enemytoattack = 0
+var resetrange = false
+var soldiersAtEnd = 0
+var noEnemiesLeftJustMoving = false
+@export var richtext : RichTextLabel
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
+	
+func resetRange():
+	for i in soldiers.size():
+			soldiers[i].enemyIsInRange = false
+			resetrange = false
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if noEnemiesLeftJustMoving && soldiersAtEnd == soldiers.size():
+		print ("soldiers at end")
+		for i in soldiers.size():
+			soldiers[i].moved = false
+			soldiers[i].nav2d.target_position = soldiers[i].position
+			soldiers[i].selected = false
+		attacking = false
+		gathering = false
+		noEnemiesLeftJustMoving = false
+		soldiersAtEnd = 0
+		if canAOA:
+			richtext.text = "Press space to make next attack activate all out attack"
+		else:
+			richtext.text = "Right click to all out attack"
 	clean_arrays()
+	
 	if Input.is_action_just_pressed("All Out Attack"):
+		if !attacking && !gathering:
+			if canAOA:
+				richtext.text = "Press space to make next attack activate all out attack"
+			else:
+				richtext.text = "Right click to all out attack"
 		canAOA = !canAOA
 		print("all out attack is ", canAOA)
 		
@@ -47,6 +77,7 @@ func _process(delta):
 
 
 func gather ():
+	richtext.text = "Gathering"
 	gathering = true
 	soldiers = get_tree().get_nodes_in_group("soldiers")
 	numberofsoliders = soldiers.size()
@@ -56,11 +87,14 @@ func gather ():
 		soldiers[i].gather()
 		
 func attack():
+	richtext.text = "Attacking"
+	
+
 	
 	
 	if !enemies.is_empty():
 		for i in soldiers.size():
-			print(soldiers[i])
+			
 		
 			
 			
@@ -71,6 +105,8 @@ func attack():
 		for i in soldiers.size():
 			soldiers[i].makePathWithPos(position)
 			soldiers[i].moved = true
+			noEnemiesLeftJustMoving = true
+			
 			
 
 func _on_navigation_agent_2d_link_reached(details):
@@ -85,10 +121,13 @@ func _on_navigation_agent_2d_navigation_finished():
 
 func _on_body_entered(body):
 	if body.is_in_group("soldiers"):
-		print("soldier in")
 		solideratpoint += 1
+		
+		soldiersAtEnd += 1
 	if body.is_in_group("enemy") && moving:
 		enemies.append(body)
+		
+			
 		
 	
 func clean_arrays():
@@ -99,5 +138,6 @@ func clean_arrays():
 
 func _on_body_exited(body):
 	if body.is_in_group("soldiers"):
-		print("soldier out")
+		soldiersAtEnd -= 1
+		
 		solideratpoint -= 1

@@ -6,42 +6,53 @@ extends Node2D
 var soldierArray = []
 var activeSoldiers = []
 var deselect = true
+@onready var attackManager = get_tree().get_first_node_in_group("attackManager")
 
 #####THIS IS THE SELECT CODE
 var dragging = false  # Are we currently dragging?
 var selected = []  # Array of selected units.
-var drag_start = Vector2.ZERO  # Location where drag began.
+var drag_start = Vector2() # Location where drag began.
 var select_rect = RectangleShape2D.new()  # Collision shape for drag box.
 
 
 	
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
+		
+			
+		if event.is_pressed():
+			print("test2")
+			for i in attackManager.soldiers.size():
+				attackManager.soldiers[i].selected = false
 			
 			if selected.size() == 0:
 				dragging = true
 				drag_start = get_global_mouse_position()
 			else:
-				for item in selected:
-					if item.collider !=null:
-						item.collider.selected = false
+				#for item in selected:
+					#if item.collider !=null:
+						#item.collider.selected = false
 				selected = []
 				
 		elif dragging:
+			print("test")
 			dragging = false
 			queue_redraw()
 			var drag_end = event.position
-			select_rect.extents = abs(drag_end - drag_start) / 2
+			select_rect.size = (drag_end - drag_start).abs()
 			var space = get_world_2d().direct_space_state
 			var query = PhysicsShapeQueryParameters2D.new()
-			query.shape = select_rect
+			query.set_shape(select_rect)
 			query.collision_mask = 2
 			query.transform = Transform2D(0, (drag_end + drag_start) / 2)
 			selected = space.intersect_shape(query)
 			print(selected)
 			for item in selected:
-				item.collider.selected = true
+				for i in attackManager.soldiers.size():
+					if item.collider == attackManager.soldiers[i]:
+						print("its in")
+						item.collider.selected = true
+						break
 	if event is InputEventMouseMotion and dragging:
 		queue_redraw()
 		
@@ -101,5 +112,10 @@ func _draw():
 		
 			
 	
-		
+#for item in selected:
+				#for i in attackManager.soldiers.size():
+					#if item.collider == attackManager.soldiers[i]:
+						#print("its in")
+						#item.collider.selected = true
+						#break
 		

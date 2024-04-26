@@ -3,6 +3,7 @@ var soldierArray = []
 var canShoot = true
 var dmg = 20
 var health = 50
+var toerase: Array
 
 
 # Called when the node enters the scene tree for the first time.
@@ -17,7 +18,9 @@ func _process(delta):
 		queue_free()
 		var alloutattack = get_tree().get_first_node_in_group("AllOutAttack") 
 		alloutattack.enemies.erase(self)
-		
+		for i in toerase.size():
+			toerase[i].enemies.erase(self)
+		alloutattack.resetRange()
 	for i in soldierArray.size():
 		if soldierArray[i] != null && canShoot == true:
 			canShoot = false
@@ -32,7 +35,7 @@ func _on_range_body_entered(body):
 	
 	if body.is_in_group("soldiers"):
 		soldierArray.append(body)
-		print("soldier")
+		
 		
 		
 	#if body == enemyToAttack:
