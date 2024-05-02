@@ -34,10 +34,10 @@ func _unhandled_input(event):
 			query.set_shape(selectedRectangle)
 			query.transform = Transform2D (0, (dragEnd + dragStart) / 2)
 			selectedUnits = space.intersect_shape(query)
-			print(selectedUnits)
+			
 			
 			for selection in selectedUnits:
-				print(selection)
+				
 				selection.collider.selected = true
 			
 	if event is InputEventMouseMotion and isDragging == true:

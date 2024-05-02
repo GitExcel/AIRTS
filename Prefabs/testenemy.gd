@@ -17,10 +17,12 @@ func _process(delta):
 	if health <= 0 :
 		queue_free()
 		var alloutattack = get_tree().get_first_node_in_group("AllOutAttack") 
-		alloutattack.enemies.erase(self)
+		if alloutattack != null:
+			alloutattack.enemies.erase(self)
+			alloutattack.resetRange()
 		for i in toerase.size():
 			toerase[i].enemies.erase(self)
-		alloutattack.resetRange()
+		
 	for i in soldierArray.size():
 		if soldierArray[i] != null && canShoot == true:
 			canShoot = false

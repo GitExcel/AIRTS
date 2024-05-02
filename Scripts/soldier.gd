@@ -32,7 +32,7 @@ func _ready():
 	unitmanager = get_tree().get_first_node_in_group("unitController")
 	
 	
-	print(attackManager.soldiers)
+	
 	
 	
 
@@ -43,12 +43,12 @@ func _ready():
 func _process(_delta: float) -> void:
 	if health <= 0:
 		var alloutattack = get_tree().get_first_node_in_group("AllOutAttack") 
-		alloutattack.soldiers.erase(self)
+		
 		attackManager.soldiers.erase(self)
 		for i in attackManager.smartAttacks.size():
 			if attackManager.smartAttacks[i].smartAttackNumber == occupiedNumber:
 				attackManager.smartAttacks[i].numberselected -= 1
-				print (attackManager.smartAttacks[i].numberselected)
+				
 				
 				
 		queue_free()
@@ -131,7 +131,7 @@ func gather():
 	gathering = true
 	moved = true
 	
-	print("gathering")
+	
 	nav2d.target_position = get_tree().get_first_node_in_group("GatherPoint").position
 	selected = false
 	
@@ -198,8 +198,7 @@ func isEnemyInRange():
 
 func _on_timer_timeout():
 	enemyToAttack = Singleton.attacked_enemy
-	print(Singleton.attacked_enemy)
-	print(enemyToAttack)
+	
 	
 
 

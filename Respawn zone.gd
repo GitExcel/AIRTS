@@ -10,15 +10,15 @@ var doonce = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for m in 3:
-		print("hello")
+		
 		var mineral1 = mineral.instantiate()
-		get_tree().root.add_child(mineral1)
+		get_parent().add_child(mineral1)
 		mineral1.position = Vector2(randf_range(self.global_position.x, markerx.global_position.x),
 		randf_range(self.global_position.y, markery.global_position.y))
 		mineral1.respawnZone = self
 	for g in 3:
 		var gas1 = gas.instantiate()
-		get_tree().root.add_child(gas1)
+		get_parent().add_child(gas1)
 		gas1.position = Vector2(randf_range(self.global_position.x, markerx.global_position.x),
 		randf_range(self.global_position.y, markery.global_position.y))
 		gas1.respawnZone = self
@@ -31,13 +31,13 @@ func _process(delta):
 		for m in 3:
 			
 			var mineral1 = mineral.instantiate()
-			get_tree().root.add_child(mineral1)
+			get_parent().add_child(mineral1)
 			mineral1.position = Vector2(randf_range(self.global_position.x, markerx.global_position.x),
 			randf_range(self.global_position.y, markery.global_position.y))
 			mineral1.respawnZone = self
 		for g in 3:
 			var gas1 = gas.instantiate()
-			get_tree().root.add_child(gas1)
+			get_parent().add_child(gas1)
 			gas1.position = Vector2(randf_range(self.global_position.x, markerx.global_position.x),
 			randf_range(self.global_position.y, markery.global_position.y))
 			gas1.respawnZone = self
@@ -50,13 +50,13 @@ func _process(delta):
 func respawn(type):
 	if type == "MINERAL":
 		var mineral1 = mineral.instantiate()
-		get_tree().root.add_child(mineral1)
+		get_parent().add_child(mineral1)
 		mineral1.position = Vector2(randf_range(self.global_position.x, markerx.global_position.x),
 		randf_range(self.global_position.y, markery.global_position.y))
 		mineral1.respawnZone = self
 	if type == "GAS":
 		var gas1 = gas.instantiate()
-		get_tree().root.add_child(gas1)
+		get_parent().add_child(gas1)
 		gas1.position = Vector2(randf_range(self.global_position.x, markerx.global_position.x),
 		randf_range(self.global_position.y, markery.global_position.y))
 		gas1.respawnZone = self

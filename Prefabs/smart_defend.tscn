@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxc4df03blbe7"]
+
+[ext_resource type="Script" path="res://Prefabs/smart_defend.gd" id="1_y648f"]
+
+[node name="SmartDefend" type="Node2D"]
+script = ExtResource("1_y648f")

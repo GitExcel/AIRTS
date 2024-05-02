@@ -33,7 +33,7 @@ func _process(delta):
 				workers[i].group = "MINERAL"
 				workers.erase(workers[i])
 				print("+1 mineral worker")
-				print(mineralWorkers.size())
+				
 				workers
 			
 func addGas():
@@ -47,3 +47,11 @@ func addMineral():
 		mineralWorkers.append(gasWorkers[0])
 		gasWorkers[0].group = "MINERAL"
 		gasWorkers.erase(gasWorkers[0])
+
+
+func _on_button_pressed():
+	gas += 100
+
+
+func _on_button_2_pressed():
+	minerals += 100

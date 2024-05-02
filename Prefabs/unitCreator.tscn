@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwjme2ypkfc1c"]
+[gd_scene load_steps=7 format=3 uid="uid://bwjme2ypkfc1c"]
 
 [ext_resource type="Script" path="res://Prefabs/unitCreator.gd" id="1_44rvg"]
 [ext_resource type="Texture2D" uid="uid://ryonuuom3vem" path="res://friendlyBuilding.png" id="2_6lg7c"]
@@ -10,8 +10,11 @@ size = Vector2(129, 130)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s18rt"]
 size = Vector2(142, 148)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dlf3x"]
+radius = 393.838
+
 [node name="StaticBody2D" type="StaticBody2D"]
-collision_mask = 2049
+collision_mask = 2561
 input_pickable = true
 script = ExtResource("1_44rvg")
 
@@ -55,6 +58,13 @@ collision_mask = 2048
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_s18rt")
 
+[node name="ENEMY RADIUS" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ENEMY RADIUS"]
+shape = SubResource("CircleShape2D_dlf3x")
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="focus_entered" from="Button2" to="." method="_on_button_focus_entered"]
@@ -68,3 +78,4 @@ shape = SubResource("RectangleShape2D_s18rt")
 [connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="ENEMY RADIUS" to="." method="_on_enemy_radius_body_entered"]

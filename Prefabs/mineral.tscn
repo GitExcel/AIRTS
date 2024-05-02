@@ -7,7 +7,7 @@
 
 [node name="Mineral" type="Area2D"]
 collision_layer = 1025
-collision_mask = 2049
+collision_mask = 2048
 script = ExtResource("1_y80fw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

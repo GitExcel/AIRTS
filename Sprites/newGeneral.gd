@@ -25,7 +25,7 @@ var gathering = false
 
 func _ready():
 	unitmanager = get_tree().get_first_node_in_group("unitController")
-	print(unitmanager)
+	
 	
 	
 	

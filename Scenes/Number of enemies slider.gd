@@ -1,6 +1,6 @@
 extends HSlider
 @onready var attackManager = get_tree().get_first_node_in_group("attackManager")
-@onready var text = $RichTextLabel
+@export var text: RichTextLabel
 
 var assignNumber = 0
 

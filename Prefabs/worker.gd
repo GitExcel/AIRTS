@@ -30,7 +30,7 @@ func _physics_process(delta):
 		moveToBase()
 	
 func getTarget():
-	print("getting target")
+	
 	
 	
 	
@@ -97,7 +97,7 @@ func find_closest_node_to_point(array, point):
 func addResource():
 	if typeHolding == "MINERALS":
 		resourcestore.minerals += 20
-		print(resourcestore.minerals)
+		
 	if typeHolding == "GAS":
 		resourcestore.gas += 20
 		
